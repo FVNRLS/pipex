@@ -1,34 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmazurit <rmazurit@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rmazurit <rmazurit@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/29 15:01:18 by rmazurit          #+#    #+#             */
-/*   Updated: 2022/07/29 15:02:38 by rmazurit         ###   ########.fr       */
+/*   Created: 2022/05/06 13:47:28 by rmazurit          #+#    #+#             */
+/*   Updated: 2022/05/06 13:47:31 by rmazurit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incl/pipex.h"
-
-void	free_split(char **split)
+int	ft_isdigit(int c)
 {
-	int	i;
-
-	i = 0;
-	while (split[i] != NULL)
-	{
-		free(split[i]);
-		i++;
-	}
-	free(split);
+	if (c >= '0' && c <= '9')
+		return (1);
+	return (0);
 }
-
-void	exit_with_error(char *str, int exitcode)
-{
-	perror(str);
-	exit(exitcode);
-}
-
-

@@ -1,34 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rmazurit <rmazurit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/29 15:01:18 by rmazurit          #+#    #+#             */
-/*   Updated: 2022/07/29 15:02:38 by rmazurit         ###   ########.fr       */
+/*   Created: 2022/05/06 13:47:37 by rmazurit          #+#    #+#             */
+/*   Updated: 2022/05/19 11:57:13 by rmazurit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incl/pipex.h"
+#include "../ft_printf.h"
 
-void	free_split(char **split)
+/*
+	Searches for the first occurrence of the character c the string pointed 
+	to by the argument s. 
+	Returns a pointer to the first occurrence of the character c in the string 
+	or NULL if the character is not found.
+*/
+char	*ft_strchr(const char *s, int c)
 {
 	int	i;
 
 	i = 0;
-	while (split[i] != NULL)
+	while (s[i])
 	{
-		free(split[i]);
+		if ((unsigned char)s[i] == (unsigned char)c)
+			return ((char *) s + i);
 		i++;
 	}
-	free(split);
+	if (s[i] == c)
+		return ((char *) s + i);
+	else
+		return (NULL);
 }
-
-void	exit_with_error(char *str, int exitcode)
-{
-	perror(str);
-	exit(exitcode);
-}
-
-
