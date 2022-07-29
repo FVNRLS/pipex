@@ -1,20 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   pipe_manager.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rmazurit <rmazurit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/29 15:01:18 by rmazurit          #+#    #+#             */
-/*   Updated: 2022/07/29 16:27:01 by rmazurit         ###   ########.fr       */
+/*   Created: 2022/07/29 15:18:41 by rmazurit          #+#    #+#             */
+/*   Updated: 2022/07/29 15:36:55 by rmazurit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/pipex.h"
 
-void	exit_with_error(char *str, int exitcode)
+void	close_pipes(t_pipex *pipex)
 {
-	perror(str);
-	exit(exitcode);
+	close(pipex->pipe[0]);
+	close(pipex->pipe[1]);
 }
+
+
 

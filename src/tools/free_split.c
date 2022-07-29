@@ -1,20 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   free_split.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rmazurit <rmazurit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/29 15:01:18 by rmazurit          #+#    #+#             */
-/*   Updated: 2022/07/29 16:27:01 by rmazurit         ###   ########.fr       */
+/*   Created: 2022/07/29 19:49:12 by rmazurit          #+#    #+#             */
+/*   Updated: 2022/07/29 19:51:38 by rmazurit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incl/pipex.h"
+#include "../../incl/pipex.h"
 
-void	exit_with_error(char *str, int exitcode)
+void	free_split(char **split)
 {
-	perror(str);
-	exit(exitcode);
-}
+	int	i;
 
+	i = 0;
+	while (split[i] != NULL)
+	{
+		free(split[i]);
+		i++;
+	}
+	free(split);
+}

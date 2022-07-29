@@ -6,7 +6,7 @@
 /*   By: rmazurit <rmazurit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 11:08:45 by rmazurit          #+#    #+#             */
-/*   Updated: 2022/07/29 15:14:12 by rmazurit         ###   ########.fr       */
+/*   Updated: 2022/07/29 19:39:34 by rmazurit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,35 @@
 # include "../lib/ft_printf/ft_printf.h"
 # include "../lib/get_next_line/get_next_line.h"
 
-typedef struct s_pipe
+typedef struct s_pipex
 {
 	int		pipe[2];
 	int		pid[2];
 	char	*infile;
 	char	*outfile;
-}				t_pipe;
+	char	*cmd1_path;
+	char	*cmd2_path;
+}				t_pipex;
+
+//CORE FUNCTIONS
+void	exec_cmd1(char *cmd_path, char **argv, char **env, t_pipex *pipex);
+void	exec_cmd2(char *cmd_path, char **argv, char **env, t_pipex *pipex);
+void	parse_input(int argc, char **argv, char **env, t_pipex *pipex);
+
+
+//PIPES MANAGER
+void	close_pipes(t_pipex *pipex);
+
+//UTILS
+void	exit_with_error(char *str, int exitcode);
+
+//TOOLS
+char	**ft_split(char const *s, char c);
+void	free_split(char **split);
+char	*ft_strdup(char *s1);
+char	*ft_strjoin(char *s1, char *s2);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
+
+
 
 #endif

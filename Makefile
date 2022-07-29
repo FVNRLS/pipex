@@ -6,6 +6,14 @@ CC 			= 		cc
 FLAGS		= 		-Wall -Wextra -Werror -g
 
 SRC 		= 		./main.c													\
+					./src/input_parser.c										\
+					./src/pipe_manager.c										\
+					./src/utils.c												\
+					./src/tools/ft_split.c										\
+					./src/tools/free_split.c									\
+					./src/tools/ft_strdup.c										\
+					./src/tools/ft_strjoin.c									\
+					./src/tools/ft_strncmp.c									\
 
 OBJ 		= 		${SRC:.c=.o}
 
