@@ -6,7 +6,7 @@
 /*   By: rmazurit <rmazurit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 16:27:14 by rmazurit          #+#    #+#             */
-/*   Updated: 2022/07/29 19:48:32 by rmazurit         ###   ########.fr       */
+/*   Updated: 2022/07/30 13:12:33 by rmazurit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,18 @@ static char *assign_path(char **paths, char **cmd)
 {
 	int		i;
 	char	*path;
+	char 	*path_with_slash;
 	char	*slash;
 
 	path = NULL;
+	path_with_slash = NULL;
 	slash = ft_strdup("/");
 	i = 0;
 	while (paths[i] != NULL)
 	{
-		path = ft_strjoin(paths[i], slash);
-		path = ft_strjoin(path, cmd[0]);
+		path_with_slash = ft_strjoin(paths[i], slash);
+		path = ft_strjoin(path_with_slash, cmd[0]);
+		free(path_with_slash);
 		if (access(path, F_OK) == 0)
 			break ;
 		free(path);
@@ -76,20 +79,17 @@ static void	get_commands(char **argv, char **env, t_pipex *pipex)
 
 	pipex->cmd1_path = assign_path(paths, cmd1);
 	pipex->cmd2_path = assign_path(paths, cmd2);
+	free_split(cmd1);
+	free_split(cmd2);
 	free_split(paths);
-
-	printf("path1:	%s", pipex->cmd1_path);
-
-//	execve(pipex->cmd1_path, cmd1, env);
-//	execve(pipex->cmd2_path, cmd2, env);
-
 }
 
 
 void	parse_input(int argc, char **argv, char **env, t_pipex *pipex)
 {
 	if (argc != 5)
-		exit_with_error("Number of passed arguments is incorrect.\n", 1);
+		exit_with_error("Error. Number of passed arguments is "
+						"incorrect.\n", ARGNUM_ERROR);
 	pipex->infile = argv[1];
 	pipex->outfile = argv[4];
 	get_commands(argv, env, pipex);

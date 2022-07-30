@@ -17,6 +17,3 @@ void	close_pipes(t_pipex *pipex)
 	close(pipex->pipe[0]);
 	close(pipex->pipe[1]);
 }
-
-
-

@@ -6,7 +6,7 @@
 /*   By: rmazurit <rmazurit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 19:49:12 by rmazurit          #+#    #+#             */
-/*   Updated: 2022/07/29 19:51:38 by rmazurit         ###   ########.fr       */
+/*   Updated: 2022/07/30 12:04:21 by rmazurit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@ void	free_split(char **split)
 	while (split[i] != NULL)
 	{
 		free(split[i]);
+		split[i] = NULL;
 		i++;
 	}
 	free(split);
+	split = NULL;
 }
