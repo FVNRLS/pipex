@@ -6,7 +6,7 @@
 /*   By: rmazurit <rmazurit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 11:08:13 by rmazurit          #+#    #+#             */
-/*   Updated: 2022/07/30 16:39:35 by rmazurit         ###   ########.fr       */
+/*   Updated: 2022/07/30 17:19:28 by rmazurit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@ void	check_leaks(void)
 	system("leaks pipex");
 }
 
+/*
+	Exec the forked child_process.
+*/
 void	exec_cmd1(char **argv, char **env, t_pipex *pipex)
 {
 	int		fd;
@@ -30,6 +33,9 @@ void	exec_cmd1(char **argv, char **env, t_pipex *pipex)
 		exit_with_error("Error. Unknown first command.\n", EXECVE_ERROR);
 }
 
+/*
+	Exec the forked parent process.
+*/
 void	exec_cmd2(char **argv, char **env, t_pipex *pipex)
 {
 	int		fd;
@@ -60,7 +66,7 @@ int	main(int argc, char **argv, char **env)
 		exec_cmd1(argv, env, &pipex);
 	if (pipex.pid[1] < 0)
 		exit_with_error("Error. No child process created.", FORK_ERROR);
-	else if (pipex.pid[1] == 0)
+	else if (pipex.pid[1] == 1)
 		exec_cmd2(argv, env, &pipex);
 
 	close_pipes(&pipex);
