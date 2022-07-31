@@ -7,7 +7,7 @@ FLAGS		= 		-Wall -Wextra -Werror -g
 
 SRC 		= 		./main.c													\
 					./src/input_parser.c										\
-					./src/pipe_manager.c										\
+					./src/pipe_processor.c										\
 					./src/error_manager.c										\
 					./src/tools/ft_split.c										\
 					./src/tools/free_all_malloc.c								\

@@ -6,7 +6,7 @@
 /*   By: rmazurit <rmazurit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 11:08:45 by rmazurit          #+#    #+#             */
-/*   Updated: 2022/07/31 15:16:58 by rmazurit         ###   ########.fr       */
+/*   Updated: 2022/07/31 15:26:33 by rmazurit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,9 @@ typedef struct s_pipex
 
 //CORE FUNCTIONS
 void	parse_input(int argc, char **argv, char **env, t_pipex *pipex);
-void	exec_cmd1(char **env, t_pipex *pipex);
-void	exec_cmd2(char **env, t_pipex *pipex);
+void	pipe_input(char **env, t_pipex *pipex);
 
-//PIPES MANAGER
-void	close_pipes(t_pipex *pipex);
-
-//UTILS
+//ERROR MANAGER
 void	exit_with_error(t_pipex *pipex, int exitcode);
 
 //TOOLS
