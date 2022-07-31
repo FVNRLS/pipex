@@ -6,7 +6,7 @@
 /*   By: rmazurit <rmazurit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 16:27:14 by rmazurit          #+#    #+#             */
-/*   Updated: 2022/07/31 13:58:15 by rmazurit         ###   ########.fr       */
+/*   Updated: 2022/07/31 15:23:52 by rmazurit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ static void	get_commands(char **argv, char **env, t_pipex *pipex)
 
 	pipex->cmd1_path = assign_path(paths, pipex->cmd1);
 	pipex->cmd2_path = assign_path(paths, pipex->cmd2);
+	if (pipex->cmd1_path == NULL || pipex->cmd2_path == NULL)
+		exit_with_error(pipex, EXECVE_ERROR);
 	free_split(paths);
 }
 

@@ -6,7 +6,7 @@
 /*   By: rmazurit <rmazurit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 11:08:45 by rmazurit          #+#    #+#             */
-/*   Updated: 2022/07/31 14:07:02 by rmazurit         ###   ########.fr       */
+/*   Updated: 2022/07/31 15:16:58 by rmazurit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 typedef struct s_pipex
 {
 	int		pipe[2];
-	int		pid[2];
+	pid_t	pid[2];
 	char	*infile;
 	char	*outfile;
 	char 	**cmd1;
@@ -39,8 +39,7 @@ typedef struct s_pipex
 # define	INFILE_ERROR		4
 # define	OUTFILE_ERROR		5
 # define	EXECVE_ERROR		6
-
-# define	PERMISSIONS		0644
+# define	PERMISSIONS			0644
 
 //CORE FUNCTIONS
 void	parse_input(int argc, char **argv, char **env, t_pipex *pipex);
@@ -49,10 +48,6 @@ void	exec_cmd2(char **env, t_pipex *pipex);
 
 //PIPES MANAGER
 void	close_pipes(t_pipex *pipex);
-
-//FD MANAGER
-int		check_open_infile(char *infile);
-int		check_open_outfile(char *outfile);
 
 //UTILS
 void	exit_with_error(t_pipex *pipex, int exitcode);
