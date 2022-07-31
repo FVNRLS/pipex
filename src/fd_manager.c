@@ -6,7 +6,7 @@
 /*   By: rmazurit <rmazurit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 13:14:04 by rmazurit          #+#    #+#             */
-/*   Updated: 2022/07/30 16:26:04 by rmazurit         ###   ########.fr       */
+/*   Updated: 2022/07/31 14:16:26 by rmazurit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,20 @@ int	check_open_infile(char *infile)
 {
 	int	fd;
 
-	fd = open(infile, O_RDONLY);
-	if (fd < 0 || access(infile, F_OK) < 0)
-		exit_with_error("Error the infile doesn't exist or you have no "
-						"permissions to open it. ", INFILE_ERROR);
 	return (fd);
 }
 
+/*
+	O_TRUNC truncates (empties) regular writable file when opened.
+	O_RDWR = O_RDWR and O_WRONLY -> open in readable and writeable mode.
+	O_CREAT = creates a new file if the file doesn't exist.
+ 	PERMISSIONS is a macro defined in /incl/pipex.h and sets initial permissions
+ 	to the created file.
+*/
 int	check_open_outfile(char *outfile)
 {
 	int	fd;
 
-	fd = open(outfile, O_WTC, RIGHTS);
-	if (fd < 0 || access(outfile, F_OK) < 0)
-		exit_with_error("Error the outfile doesn't exist or you have no "
-						"permissions to open it. ", INFILE_ERROR);
+
 	return (fd);
 }

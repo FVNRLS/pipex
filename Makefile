@@ -9,9 +9,9 @@ SRC 		= 		./main.c													\
 					./src/input_parser.c										\
 					./src/pipe_manager.c										\
 					./src/fd_manager.c											\
-					./src/utils.c												\
+					./src/error_manager.c										\
 					./src/tools/ft_split.c										\
-					./src/tools/free_split.c									\
+					./src/tools/free_all_malloc.c								\
 					./src/tools/ft_strdup.c										\
 					./src/tools/ft_strjoin.c									\
 					./src/tools/ft_strncmp.c									\
