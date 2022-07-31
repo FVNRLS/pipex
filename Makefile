@@ -1,5 +1,6 @@
 
 NAME 		= 		pipex
+BONUS_NAME	=		pipex_bonus
 
 CC 			= 		cc
 
@@ -9,37 +10,50 @@ SRC 		= 		./main.c													\
 					./src/input_parser.c										\
 					./src/pipe_processor.c										\
 					./src/error_manager.c										\
-					./src/tools/ft_split.c										\
+
+TOOLS_SRC	=		./src/tools/ft_split.c										\
 					./src/tools/free_all_malloc.c								\
 					./src/tools/ft_strdup.c										\
 					./src/tools/ft_strjoin.c									\
 					./src/tools/ft_strncmp.c									\
 
+BONUS_SRC	= 		./src/bonus/main_bonus.c									\
+					./src/bonus/error_manager_bonus.c							\
+					#./src/bonus/input_parser_bonus.c							\
+					./src/bonus/pipe_processor_bonus.c							\
+
 OBJ 		= 		${SRC:.c=.o}
+TOOLS_OBJ 	= 		${TOOLS_SRC:.c=.o}
+BONUS_OBJ	=		${BONUS_SRC:.c=.o}
 
 LIBS		=		./lib/get_next_line/get_next_line.a							\
 					./lib/ft_printf/libftprintf.a 								\
 
-$(NAME): $(OBJ)
+$(NAME): $(OBJ) $(TOOLS_OBJ)
 	make -C ./lib/get_next_line
 	make -C ./lib/ft_printf
-	${CC} ${FLAGS} ${OBJ} ${LIBS} -o pipex
+	${CC} ${FLAGS} ${OBJ} ${TOOLS_OBJ} ${LIBS} -o pipex
 
 all: $(NAME)
 
 clean:
 	cd ./lib/get_next_line && make clean && cd .. && cd ..
 	cd ./lib/ft_printf && make clean && cd .. && cd ..
-	rm -f ${OBJ}
+	rm -f ${OBJ} ${TOOLS_OBJ} ${BONUS_OBJ}
 
 fclean:
 	cd ./lib/get_next_line && make fclean && cd .. && cd ..
 	cd ./lib/ft_printf && make fclean && cd .. && cd ..
-	rm -f ${OBJ}
-	rm -f ${NAME}
+	rm -f ${OBJ} ${TOOLS_OBJ} ${BONUS_OBJ} ${NAME}
+
+$(BONUS_NAME): $(BONUS_OBJ) $(TOOLS_OBJ)
+	make -C ./lib/get_next_line
+	make -C ./lib/ft_printf
+	${CC} ${FLAGS} ${BONUS_OBJ} ${TOOLS_OBJ} ${LIBS} -o pipex
+
+bonus: $(BONUS_NAME)
 
 re: fclean all
 
-bonus: all
 
 .PHONY: all clean fclean re bonus

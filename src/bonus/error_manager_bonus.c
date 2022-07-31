@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incl/pipex.h"
+#include "../../incl/pipex_bonus.h"
 
 void	exit_with_error(t_pipex *pipex, int exitcode)
 {

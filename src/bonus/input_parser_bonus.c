@@ -6,11 +6,11 @@
 /*   By: rmazurit <rmazurit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 16:27:14 by rmazurit          #+#    #+#             */
-/*   Updated: 2022/07/31 16:04:11 by rmazurit         ###   ########.fr       */
+/*   Updated: 2022/07/31 18:54:12 by rmazurit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incl/pipex.h"
+#include "../../incl/pipex_bonus.h"
 
 static char *assign_path(char **paths, char **cmd)
 {
@@ -70,8 +70,8 @@ static void	get_commands(char **argv, char **env, t_pipex *pipex)
 {
 	char	**paths;
 
-	pipex->cmd1 = ft_split(argv[2], ' ');
-	pipex->cmd2 = ft_split(argv[3], ' ');
+	pipex->cmd_in = ft_split(argv[2], ' ');
+	pipex->cmd_out = ft_split(argv[3], ' ');
 
 	paths = get_all_paths(env);
 
@@ -80,11 +80,30 @@ static void	get_commands(char **argv, char **env, t_pipex *pipex)
 	free_split(paths);
 }
 
-void	parse_input(int argc, char **argv, char **env, t_pipex *pipex)
+//TODO: continue with parsing!
+void	parse_in_out_files(t_pipex *pipex)
 {
-	if (argc != 5)
-		exit_with_error(pipex, ARGNUM_ERROR);
+	int index_outfile;
+
+	index_outfile = pipex->args->argc - 1;
+
 	pipex->infile = argv[1];
-	pipex->outfile = argv[4];
+	pipex->outfile = argv[index_outfile];
+
+	pipex->fd_in = open(pipex->infile, O_RDONLY);
+	if (pipex->fd_in < 0 || access(pipex->infile, F_OK) < 0)
+		exit_with_error(pipex, INFILE_EXIST_ERROR);
+	if (pipex->fd_in < 0 || access(pipex->infile, R_OK) < 0)
+		exit_with_error(pipex, INFILE_READ_ERROR);
+
+	pipex->fd_out = open(pipex->outfile, O_CREAT | O_RDWR | O_TRUNC,
+						 PERMISSIONS);
+	if (pipex->fd_out < 0 || access(pipex->outfile, F_OK) < 0)
+		exit_with_error(pipex, OUTFILE_ERROR);
+}
+
+void	parse_input(char **env, t_pipex *pipex)
+{
+
 	get_commands(argv, env, pipex);
 }

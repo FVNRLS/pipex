@@ -1,17 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.h                                             :+:      :+:    :+:   */
+/*   pipex_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rmazurit <rmazurit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/29 11:08:45 by rmazurit          #+#    #+#             */
-/*   Updated: 2022/07/31 17:57:45 by rmazurit         ###   ########.fr       */
+/*   Created: 2022/07/31 17:43:23 by rmazurit          #+#    #+#             */
+/*   Updated: 2022/07/31 18:29:36 by rmazurit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+
+#ifndef PIPEX_BONUS_H
+# define PIPEX_BONUS_H
 
 # include <stdbool.h>
 # include <unistd.h>
@@ -21,16 +22,25 @@
 # include "../lib/ft_printf/ft_printf.h"
 # include "../lib/get_next_line/get_next_line.h"
 
+typedef	struct s_args
+{
+	int 	argc;
+	char 	**argv;
+}			t_args;
+
 typedef struct s_pipex
 {
 	int		pipe[2];
 	pid_t	pid[2];
 	char	*infile;
 	char	*outfile;
-	char 	**cmd1;
-	char 	**cmd2;
-	char	*cmd1_path;
-	char	*cmd2_path;
+	int 	fd_in;
+	int 	fd_out;
+	char 	**cmd_in;
+	char 	**cmd_out;
+	char	*cmd_in_path;
+	char	*cmd_out_path;
+	t_args	args;
 }			t_pipex;
 
 # define	ARGNUM_ERROR		1
@@ -43,8 +53,8 @@ typedef struct s_pipex
 # define	PERMISSIONS			0644
 
 //CORE FUNCTIONS
-void	parse_input(int argc, char **argv, char **env, t_pipex *pipex);
-void	pipe_input(char **env, t_pipex *pipex);
+void	parse_in_out_files(t_pipex *pipex);
+
 
 //ERROR MANAGER
 void	exit_with_error(t_pipex *pipex, int exitcode);

@@ -6,11 +6,11 @@
 /*   By: rmazurit <rmazurit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 15:18:41 by rmazurit          #+#    #+#             */
-/*   Updated: 2022/07/31 17:21:10 by rmazurit         ###   ########.fr       */
+/*   Updated: 2022/07/31 17:54:55 by rmazurit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incl/pipex.h"
+#include "../../incl/pipex_bonus.h"
 
 static void	close_pipes(t_pipex *pipex)
 {
@@ -23,13 +23,6 @@ static void	close_pipes(t_pipex *pipex)
 */
 static void	exec_cmd1(char **env, t_pipex *pipex)
 {
-	int		fd;
-
-	fd = open(pipex->infile, O_RDONLY);
-	if (fd < 0 || access(pipex->infile, F_OK) < 0)
-		exit_with_error(pipex, INFILE_EXIST_ERROR);
-	if (fd < 0 || access(pipex->infile, R_OK) < 0)
-		exit_with_error(pipex, INFILE_READ_ERROR);
 	dup2(fd, STDIN_FILENO);
 	dup2(pipex->pipe[1], STDOUT_FILENO);
 	close(pipex->pipe[0]);
@@ -45,9 +38,6 @@ static void	exec_cmd2(char **env, t_pipex *pipex)
 {
 	int		fd;
 
-	fd = open(pipex->outfile, O_CREAT | O_RDWR | O_TRUNC, PERMISSIONS);
-	if (fd < 0 || access(pipex->outfile, F_OK) < 0)
-		exit_with_error(pipex, OUTFILE_ERROR);
 	dup2(fd, STDOUT_FILENO);
 	dup2(pipex->pipe[0], STDIN_FILENO);
 	close(pipex->pipe[1]);
