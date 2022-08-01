@@ -61,7 +61,8 @@ void	close_pipes(t_pipex *pipex);
 
 void	pipe_in_to_out(char **env, t_pipex *pipex, int i);
 void	pipe_in_to_inter(char **env, t_pipex *pipex, int i);
-
+void	pipe_inter_to_inter(char **env, t_pipex *pipex, int i);
+void	pipe_inter_to_out(char **env, t_pipex *pipex, int i);
 
 
 //ERROR MANAGER

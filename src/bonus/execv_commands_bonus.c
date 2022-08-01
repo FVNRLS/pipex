@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execv_commands.c                                   :+:      :+:    :+:   */
+/*   execv_commands_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmazurit <rmazurit@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rmazurit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 11:46:04 by rmazurit          #+#    #+#             */
-/*   Updated: 2022/08/01 13:25:20 by rmazurit         ###   ########.fr       */
+/*   Updated: 2022/08/01 15:31:05 by rmazurit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,10 @@ void	exec_first_cmd(char **env, t_pipex *pipex)
 
 void	exec_inter_cmd(char **env, t_pipex *pipex)
 {
-	int fd = 1; //edit!
-
-	dup2(fd, pipex->pipe[0]);
-	dup2(pipex->pipe[0], STDIN_FILENO);
-	close(pipex->pipe[1]);
+	dup2(pipex->pipe[1], STDOUT_FILENO);
+//	dup2(pipex->pipe[0], pipex->pipe[1]);
+	dup2(STDIN_FILENO, STDOUT_FILENO);
+	close_pipes(pipex);
 	if (execve(pipex->cmd_path, pipex->cmd, env) < 0)
 		exit_with_error(pipex, EXECVE_ERROR);
 }

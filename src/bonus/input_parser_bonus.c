@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input_manager.c                                    :+:      :+:    :+:   */
+/*   input_parser_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmazurit <rmazurit@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rmazurit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 16:27:14 by rmazurit          #+#    #+#             */
-/*   Updated: 2022/08/01 13:06:09 by rmazurit         ###   ########.fr       */
+/*   Updated: 2022/08/01 15:26:23 by rmazurit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,14 +108,27 @@ void	parse_exec_commands(char **env, t_pipex *pipex)
 	i = 2;
 	while (i < index_outfile)
 	{
-		get_cmd(env, pipex, i);
-
-		if (pipex->args.argc == 5)
+//		if (pipex->args.argc == 5)
+//		{
+//			pipe_in_to_out(env, pipex, i);
+//			exit (EXIT_SUCCESS);
+//		}
+//		else
 		{
-			pipe_in_to_out(env, pipex, i);
-			exit (EXIT_SUCCESS);
+			if (i == 2)
+			{
+				if (pipe(pipex->pipe) < 0)
+					exit_with_error(pipex, PIPE_ERROR);
+				pipe_in_to_inter(env, pipex, i);
+			}
+			i++;
+			if (i != last_cmd)
+				pipe_inter_to_inter(env, pipex, i);
+			if (i == last_cmd)
+			{
+				pipe_in_to_out(env, pipex, i);
+				exit (EXIT_SUCCESS);
+			}
 		}
-
-		i++;
 	}
 }

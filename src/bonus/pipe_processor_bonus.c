@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipe_manager.c                                     :+:      :+:    :+:   */
+/*   pipe_processor_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmazurit <rmazurit@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rmazurit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 15:18:41 by rmazurit          #+#    #+#             */
-/*   Updated: 2022/08/01 13:12:20 by rmazurit         ###   ########.fr       */
+/*   Updated: 2022/08/01 15:23:53 by rmazurit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,44 @@ void	pipe_in_to_inter(char **env, t_pipex *pipex, int i)
 	if (pipe(pipex->pipe) < 0)
 		exit_with_error(pipex, PIPE_ERROR);
 	get_cmd(env, pipex, i);
+	pipex->pid[0] = fork();
+	if (pipex->pid[0] < 0)
+		exit_with_error(pipex, FORK_ERROR);
+	else if (pipex->pid[0] == 0)
+		exec_first_cmd(env, pipex);
+	waitpid(pipex->pid[1], &status, 0);
+	clear_cmd(pipex);
+}
+
+void	pipe_inter_to_inter(char **env, t_pipex *pipex, int i)
+{
+	int   	status;
+
+	if (pipe(pipex->pipe) < 0)
+		exit_with_error(pipex, PIPE_ERROR);
+	get_cmd(env, pipex, i);
+	pipex->pid[0] = fork();
+	if (pipex->pid[0] < 0)
+		exit_with_error(pipex, FORK_ERROR);
+	if (pipex->pid[0] == 0)
+		exec_inter_cmd(env, pipex);
+	waitpid(pipex->pid[0], &status, 0);
+	clear_cmd(pipex);
+}
+
+
+void	pipe_inter_to_out(char **env, t_pipex *pipex, int i)
+{
+	int   	status;
+
+	if (pipe(pipex->pipe) < 0)
+		exit_with_error(pipex, PIPE_ERROR);
+	get_cmd(env, pipex, i);
 	pipex->pid[1] = fork();
 	if (pipex->pid[1] < 0)
 		exit_with_error(pipex, FORK_ERROR);
 	if (pipex->pid[1] == 0)
-		exec_inter_cmd(env, pipex);
-	close_pipes(pipex);
+		exec_last_cmd(env, pipex);
 	waitpid(pipex->pid[1], &status, 0);
 	clear_cmd(pipex);
 }
