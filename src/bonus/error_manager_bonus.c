@@ -6,7 +6,7 @@
 /*   By: rmazurit <rmazurit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 13:53:43 by rmazurit          #+#    #+#             */
-/*   Updated: 2022/07/31 17:29:49 by rmazurit         ###   ########.fr       */
+/*   Updated: 2022/08/01 13:01:16 by rmazurit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	exit_with_error(t_pipex *pipex, int exitcode)
 	else if (exitcode == EXECVE_ERROR)
 		str = "Error. Unknown command";
 	if (exitcode != ARGNUM_ERROR && exitcode != EXECVE_ERROR)
-		free_all_alloc_items(pipex);
+		clear_cmd(pipex);
 	perror(str);
 	exit(exitcode);
 }

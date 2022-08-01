@@ -6,7 +6,7 @@
 /*   By: rmazurit <rmazurit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 16:27:14 by rmazurit          #+#    #+#             */
-/*   Updated: 2022/07/31 18:54:12 by rmazurit         ###   ########.fr       */
+/*   Updated: 2022/08/01 13:06:09 by rmazurit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,29 +66,22 @@ static char	**get_all_paths(char **env)
 	return (ft_split(paths, ':'));
 }
 
-static void	get_commands(char **argv, char **env, t_pipex *pipex)
+void	get_cmd(char **env, t_pipex *pipex, int i)
 {
 	char	**paths;
 
-	pipex->cmd_in = ft_split(argv[2], ' ');
-	pipex->cmd_out = ft_split(argv[3], ' ');
+	pipex->cmd = ft_split(pipex->args.argv[i], ' ');
 
 	paths = get_all_paths(env);
 
-	pipex->cmd1_path = assign_path(paths, pipex->cmd1);
-	pipex->cmd2_path = assign_path(paths, pipex->cmd2);
+	pipex->cmd_path = assign_path(paths, pipex->cmd);
 	free_split(paths);
 }
 
-//TODO: continue with parsing!
-void	parse_in_out_files(t_pipex *pipex)
+void	parse_in_out_files(t_pipex *pipex, int index_outfile)
 {
-	int index_outfile;
-
-	index_outfile = pipex->args->argc - 1;
-
-	pipex->infile = argv[1];
-	pipex->outfile = argv[index_outfile];
+	pipex->infile = pipex->args.argv[1];
+	pipex->outfile =  pipex->args.argv[index_outfile];
 
 	pipex->fd_in = open(pipex->infile, O_RDONLY);
 	if (pipex->fd_in < 0 || access(pipex->infile, F_OK) < 0)
@@ -102,8 +95,27 @@ void	parse_in_out_files(t_pipex *pipex)
 		exit_with_error(pipex, OUTFILE_ERROR);
 }
 
-void	parse_input(char **env, t_pipex *pipex)
+void	parse_exec_commands(char **env, t_pipex *pipex)
 {
+	int i;
+	int index_outfile;
+	int last_cmd;
 
-	get_commands(argv, env, pipex);
+	index_outfile = pipex->args.argc - 1;
+	last_cmd = index_outfile - 1;
+
+
+	i = 2;
+	while (i < index_outfile)
+	{
+		get_cmd(env, pipex, i);
+
+		if (pipex->args.argc == 5)
+		{
+			pipe_in_to_out(env, pipex, i);
+			exit (EXIT_SUCCESS);
+		}
+
+		i++;
+	}
 }
