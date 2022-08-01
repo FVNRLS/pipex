@@ -95,6 +95,9 @@ void	parse_in_out_files(t_pipex *pipex, int index_outfile)
 		exit_with_error(pipex, OUTFILE_ERROR);
 }
 
+//TODO: problem:
+// ./pipex infile "cat" "cat" "cat" outfile
+
 void	parse_exec_commands(char **env, t_pipex *pipex)
 {
 	int i;
