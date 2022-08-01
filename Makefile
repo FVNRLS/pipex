@@ -27,6 +27,7 @@ TOOLS_SRC	=		./src/tools/ft_split.c									\
 					./src/tools/ft_strdup.c									\
 					./src/tools/ft_strjoin.c								\
 					./src/tools/ft_strncmp.c								\
+					./src/tools/ft_strlen.c									\
 
 BONUS_SRC	= 		./src/bonus/main_bonus.c								\
 					./src/bonus/error_manager_bonus.c						\
@@ -62,7 +63,7 @@ fclean:
 $(BONUS_NAME): $(BONUS_OBJ) $(TOOLS_OBJ)
 	make -C ./lib/get_next_line
 	make -C ./lib/ft_printf
-	${CC} ${FLAGS} ${BONUS_OBJ} ${TOOLS_OBJ} ${LIBS} -o pipex
+	${CC} ${FLAGS} ${TOOLS_OBJ} ${BONUS_OBJ} ${LIBS} -o pipex
 
 bonus: $(BONUS_NAME)
 

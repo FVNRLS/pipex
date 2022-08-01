@@ -104,8 +104,11 @@ void	parse_exec_commands(char **env, t_pipex *pipex)
 	index_outfile = pipex->args.argc - 1;
 	last_cmd = index_outfile - 1;
 
-
 	i = 2;
+	if (pipe(pipex->pipe1) < 0)
+		exit_with_error(pipex, PIPE_ERROR);
+	if (pipe(pipex->pipe2) < 0)
+		exit_with_error(pipex, PIPE_ERROR);
 	while (i < index_outfile)
 	{
 //		if (pipex->args.argc == 5)
@@ -114,21 +117,22 @@ void	parse_exec_commands(char **env, t_pipex *pipex)
 //			exit (EXIT_SUCCESS);
 //		}
 //		else
+
 		{
 			if (i == 2)
-			{
-				if (pipe(pipex->pipe) < 0)
-					exit_with_error(pipex, PIPE_ERROR);
 				pipe_in_to_inter(env, pipex, i);
-			}
-			i++;
-			if (i != last_cmd)
-				pipe_inter_to_inter(env, pipex, i);
-			if (i == last_cmd)
+			else if (i != last_cmd)
+				pipe_inter(env, pipex, i);
+			else if (i == last_cmd)
 			{
-				pipe_in_to_out(env, pipex, i);
+				pipe_inter_to_out(env, pipex, i);
 				exit (EXIT_SUCCESS);
 			}
 		}
+		i++;
 	}
+	close(pipex->pipe1[0]);
+	close(pipex->pipe1[1]);
+	close(pipex->pipe2[0]);
+	close(pipex->pipe2[1]);
 }

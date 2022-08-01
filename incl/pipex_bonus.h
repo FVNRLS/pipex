@@ -30,8 +30,9 @@ typedef	struct s_args
 
 typedef struct s_pipex
 {
-	int		pipe[2];
-	pid_t	pid[2];
+	int		pipe1[2];
+	int 	pipe2[2];
+	pid_t	pid;
 	char	*infile;
 	char	*outfile;
 	int 	fd_in;
@@ -61,7 +62,7 @@ void	close_pipes(t_pipex *pipex);
 
 void	pipe_in_to_out(char **env, t_pipex *pipex, int i);
 void	pipe_in_to_inter(char **env, t_pipex *pipex, int i);
-void	pipe_inter_to_inter(char **env, t_pipex *pipex, int i);
+void	pipe_inter(char **env, t_pipex *pipex, int i);
 void	pipe_inter_to_out(char **env, t_pipex *pipex, int i);
 
 
