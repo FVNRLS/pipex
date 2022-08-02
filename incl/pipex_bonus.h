@@ -6,7 +6,7 @@
 /*   By: rmazurit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 17:43:23 by rmazurit          #+#    #+#             */
-/*   Updated: 2022/08/02 15:06:52 by rmazurit         ###   ########.fr       */
+/*   Updated: 2022/08/02 18:53:01 by rmazurit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,12 @@ typedef struct s_pipex
 	pid_t	pid;
 	char	*infile;
 	char	*outfile;
-	bool	heredoc_used;
 	int 	fd_in;
 	int 	fd_out;
+	bool	heredoc_used;
 	char 	**cmd;
 	char	*cmd_path;
-	t_args	args;
+	t_args	*args;
 }			t_pipex;
 
 # define	ARGNUM_ERROR		1
@@ -56,8 +56,7 @@ typedef struct s_pipex
 # endif
 
 //CORE FUNCTIONS
-void	parse_in_out_files(t_pipex *pipex, int index_outfile);
-void	parse_exec_commands(char **env, t_pipex *pipex);
+void	parse_exec_input(char **env, t_pipex *pipex);
 void	get_cmd(char **env, t_pipex *pipex, int i);
 
 //PIPE FUNCTIONS

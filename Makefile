@@ -6,7 +6,7 @@
 #    By: rmazurit <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/01 11:52:23 by rmazurit          #+#    #+#              #
-#    Updated: 2022/08/02 15:31:17 by rmazurit         ###   ########.fr        #
+#    Updated: 2022/08/02 15:35:43 by rmazurit         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ TOOLS_SRC	=		./src/tools/ft_split.c									\
 BONUS_SRC	= 		./src/bonus/main_bonus.c								\
 					./src/bonus/error_manager_bonus.c						\
 					./src/bonus/input_parser_bonus.c						\
+					./src/bonus/command_extractor.c							\
 					./src/bonus/execv_commands_bonus.c						\
 					./src/bonus/pipe_processor_bonus.c						\
 					./src/bonus/heredoc_processor.c							\

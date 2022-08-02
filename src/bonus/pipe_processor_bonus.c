@@ -6,7 +6,7 @@
 /*   By: rmazurit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 15:18:41 by rmazurit          #+#    #+#             */
-/*   Updated: 2022/08/02 13:26:00 by rmazurit         ###   ########.fr       */
+/*   Updated: 2022/08/02 18:53:01 by rmazurit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	pipe_infile(char **env, t_pipex *pipex, int i)
 	if (status != 0)
 		exit(EXIT_FAILURE);
 	free_cmd(pipex);
+	close(pipex->fd_in);
 	close(pipex->pipe[1]);
 	dup2(pipex->pipe[0], STDIN_FILENO);
 	close(pipex->pipe[0]);
@@ -77,7 +78,7 @@ void	pipe_from_infile(char **env, t_pipex *pipex)
 	int index_outfile;
 	int last_cmd;
 
-	index_outfile = pipex->args.argc - 1;
+	index_outfile = pipex->args->argc - 1;
 	last_cmd = index_outfile - 1;
 	i = 2;
 	while (i < index_outfile)
