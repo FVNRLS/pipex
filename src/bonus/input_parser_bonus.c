@@ -6,7 +6,7 @@
 /*   By: rmazurit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 16:27:14 by rmazurit          #+#    #+#             */
-/*   Updated: 2022/08/02 12:56:39 by rmazurit         ###   ########.fr       */
+/*   Updated: 2022/08/02 14:44:31 by rmazurit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,39 +80,32 @@ void	parse_in_out_files(t_pipex *pipex, int index_outfile)
 {
 	pipex->infile = pipex->args.argv[1];
 	pipex->outfile =  pipex->args.argv[index_outfile];
-
-	pipex->fd_in = open(pipex->infile, O_RDONLY);
-	if (pipex->fd_in < 0 || access(pipex->infile, F_OK) < 0)
-		exit_with_error(pipex, INFILE_EXIST_ERROR);
-	if (pipex->fd_in < 0 || access(pipex->infile, R_OK) < 0)
-		exit_with_error(pipex, INFILE_READ_ERROR);
-	pipex->fd_out = open(pipex->outfile, O_CREAT | O_RDWR | O_TRUNC,
-						 PERMISSIONS);
+	if (ft_strncmp(pipex->infile, "here_doc", 8 == 0))
+	{
+		pipex->heredoc_used = true;
+		pipex->infile = "here_doc";
+		pipex->fd_in = open("/tmp/.tmp", O_CREAT | O_RDWR | O_TRUNC, RIGHTS);
+		if (pipex->fd_in < 0)
+			exit_with_error(pipex, TMP_FD_ERROR);
+	}
+	else
+	{
+		pipex->heredoc_used = false;
+		pipex->fd_in = open(pipex->infile, O_RDONLY);
+		if (pipex->fd_in < 0 || access(pipex->infile, F_OK) < 0)
+			exit_with_error(pipex, INFILE_EXIST_ERROR);
+		if (pipex->fd_in < 0 || access(pipex->infile, R_OK) < 0)
+			exit_with_error(pipex, INFILE_READ_ERROR);
+	}
+	pipex->fd_out = open(pipex->outfile, O_CREAT | O_RDWR | O_TRUNC, RIGHTS);
 	if (pipex->fd_out < 0 || access(pipex->outfile, F_OK) < 0)
 		exit_with_error(pipex, OUTFILE_ERROR);
 }
 
 void	parse_exec_commands(char **env, t_pipex *pipex)
 {
-	int i;
-	int index_outfile;
-	int last_cmd;
-
-	index_outfile = pipex->args.argc - 1;
-	last_cmd = index_outfile - 1;
-
-	i = 2;
-	while (i < index_outfile)
-	{
-		if (i == 2)
-			pipe_infile(env, pipex, i);
-		else if (i != last_cmd)
-			pipe_inter(env, pipex, i);
-		else if (i == last_cmd)
-		{
-			pipe_outfile(env, pipex, i);
-			exit (EXIT_SUCCESS);
-		}
-		i++;
-	}
+	if (pipex->heredoc_used == true)
+		pipe_from_heredoc(env, pipex);
+	else
+		pipe_from_infile(env, pipex);
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_split.c                                       :+:      :+:    :+:   */
+/*   free_all_malloc.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmazurit <rmazurit@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rmazurit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 19:49:12 by rmazurit          #+#    #+#             */
-/*   Updated: 2022/08/01 12:58:07 by rmazurit         ###   ########.fr       */
+/*   Updated: 2022/08/02 15:32:39 by rmazurit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,4 @@ void	free_all_alloc_items(t_pipex *pipex)
 		free(pipex->cmd1_path);
 	if (pipex->cmd2_path != NULL)
 		free(pipex->cmd2_path);
-}
-
-void	clear_cmd(t_pipex *pipex)
-{
-	if (pipex->cmd != NULL)
-		free_split(pipex->cmd1);
-	if (pipex->cmd_path != NULL)
-		free(pipex->cmd_path);
 }

@@ -6,7 +6,7 @@
 /*   By: rmazurit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 17:43:23 by rmazurit          #+#    #+#             */
-/*   Updated: 2022/08/02 12:52:37 by rmazurit         ###   ########.fr       */
+/*   Updated: 2022/08/02 15:06:52 by rmazurit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct s_pipex
 	pid_t	pid;
 	char	*infile;
 	char	*outfile;
+	bool	heredoc_used;
 	int 	fd_in;
 	int 	fd_out;
 	char 	**cmd;
@@ -47,10 +48,11 @@ typedef struct s_pipex
 # define	INFILE_READ_ERROR	4
 # define	INFILE_EXIST_ERROR	5
 # define	OUTFILE_ERROR		6
-# define	EXECVE_ERROR		7
+# define 	TMP_FD_ERROR		7
+# define	EXECVE_ERROR		8
 
-# ifndef PERMISSIONS
-#  define	PERMISSIONS			0644
+# ifndef RIGHTS
+#  define	RIGHTS				0644
 # endif
 
 //CORE FUNCTIONS
@@ -59,6 +61,8 @@ void	parse_exec_commands(char **env, t_pipex *pipex);
 void	get_cmd(char **env, t_pipex *pipex, int i);
 
 //PIPE FUNCTIONS
+void	pipe_from_infile(char **env, t_pipex *pipex);
+void	pipe_from_heredoc(char **env, t_pipex *pipex);
 void	pipe_infile(char **env, t_pipex *pipex, int i);
 void	pipe_inter(char **env, t_pipex *pipex, int i);
 void	pipe_outfile(char **env, t_pipex *pipex, int i);

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rmazurit <rmazurit@student.42.fr>          +#+  +:+       +#+         #
+#    By: rmazurit <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/01 11:52:23 by rmazurit          #+#    #+#              #
-#    Updated: 2022/08/01 13:09:43 by rmazurit         ###   ########.fr        #
+#    Updated: 2022/08/02 15:31:17 by rmazurit         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ BONUS_NAME	=		pipex_bonus
 
 CC 			= 		cc
 
-FLAGS		= 		-Wall -Wextra -Werror -g
+FLAGS		= 		-Wall -Wextra -Werror
 
 SRC 		= 		./main.c												\
 					./src/input_parser.c									\
@@ -34,6 +34,7 @@ BONUS_SRC	= 		./src/bonus/main_bonus.c								\
 					./src/bonus/input_parser_bonus.c						\
 					./src/bonus/execv_commands_bonus.c						\
 					./src/bonus/pipe_processor_bonus.c						\
+					./src/bonus/heredoc_processor.c							\
 					./src/tools/free_all_malloc_bonus.c						\
 
 OBJ 		= 		${SRC:.c=.o}
@@ -44,11 +45,16 @@ LIBS		=		./lib/get_next_line/get_next_line.a						\
 					./lib/ft_printf/libftprintf.a 							\
 
 $(NAME): $(OBJ) $(TOOLS_OBJ)
-	make -C ./lib/get_next_line
-	make -C ./lib/ft_printf
-	${CC} ${FLAGS} ${OBJ} ${TOOLS_OBJ} ${LIBS} -o pipex
+	${CC} ${FLAGS} ${OBJ} ${TOOLS_OBJ} -o pipex
 
 all: $(NAME)
+
+$(BONUS_NAME): $(BONUS_OBJ) $(TOOLS_OBJ)
+	make -C ./lib/get_next_line
+	make -C ./lib/ft_printf
+	${CC} ${FLAGS} ${BONUS_OBJ} ${TOOLS_OBJ} ${LIBS} -o pipex
+
+bonus: $(BONUS_NAME)
 
 clean:
 	cd ./lib/get_next_line && make clean && cd .. && cd ..
@@ -60,14 +66,6 @@ fclean:
 	cd ./lib/ft_printf && make fclean && cd .. && cd ..
 	rm -f ${OBJ} ${TOOLS_OBJ} ${BONUS_OBJ} ${NAME}
 
-$(BONUS_NAME): $(BONUS_OBJ) $(TOOLS_OBJ)
-	make -C ./lib/get_next_line
-	make -C ./lib/ft_printf
-	${CC} ${FLAGS} ${TOOLS_OBJ} ${BONUS_OBJ} ${LIBS} -o pipex
-
-bonus: $(BONUS_NAME)
-
 re: fclean all
-
 
 .PHONY: all clean fclean re bonus

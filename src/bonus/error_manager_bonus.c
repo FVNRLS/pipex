@@ -24,6 +24,8 @@ void	exit_with_error(t_pipex *pipex, int exitcode)
 		str = "Error. You don't have the permissions to read from the file";
 	else if (exitcode == OUTFILE_ERROR)
 		str = "Error. File couldn't be created";
+	else if (exitcode == TMP_FD_ERROR)
+		str = "Error. Could not create a tmp file";
 	else if (exitcode == PIPE_ERROR)
 		str = "Pipe Error";
 	else if (exitcode == FORK_ERROR)

@@ -6,7 +6,7 @@
 /*   By: rmazurit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 15:18:41 by rmazurit          #+#    #+#             */
-/*   Updated: 2022/08/02 12:52:37 by rmazurit         ###   ########.fr       */
+/*   Updated: 2022/08/02 13:26:00 by rmazurit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,3 +70,28 @@ void	pipe_outfile(char **env, t_pipex *pipex, int i)
 		exit(EXIT_FAILURE);
 	free_cmd(pipex);
 }
+
+void	pipe_from_infile(char **env, t_pipex *pipex)
+{
+	int i;
+	int index_outfile;
+	int last_cmd;
+
+	index_outfile = pipex->args.argc - 1;
+	last_cmd = index_outfile - 1;
+	i = 2;
+	while (i < index_outfile)
+	{
+		if (i == 2)
+			pipe_infile(env, pipex, i);
+		else if (i != last_cmd)
+			pipe_inter(env, pipex, i);
+		else if (i == last_cmd)
+		{
+			pipe_outfile(env, pipex, i);
+			exit (EXIT_SUCCESS);
+		}
+		i++;
+	}
+}
+
