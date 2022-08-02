@@ -6,7 +6,7 @@
 /*   By: rmazurit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 16:27:14 by rmazurit          #+#    #+#             */
-/*   Updated: 2022/08/01 15:26:23 by rmazurit         ###   ########.fr       */
+/*   Updated: 2022/08/02 11:19:07 by rmazurit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,10 +108,7 @@ void	parse_exec_commands(char **env, t_pipex *pipex)
 	last_cmd = index_outfile - 1;
 
 	i = 2;
-	if (pipe(pipex->pipe1) < 0)
-		exit_with_error(pipex, PIPE_ERROR);
-	if (pipe(pipex->pipe2) < 0)
-		exit_with_error(pipex, PIPE_ERROR);
+
 	while (i < index_outfile)
 	{
 //		if (pipex->args.argc == 5)
@@ -134,8 +131,4 @@ void	parse_exec_commands(char **env, t_pipex *pipex)
 		}
 		i++;
 	}
-	close(pipex->pipe1[0]);
-	close(pipex->pipe1[1]);
-	close(pipex->pipe2[0]);
-	close(pipex->pipe2[1]);
 }

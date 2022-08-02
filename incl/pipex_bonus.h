@@ -30,8 +30,7 @@ typedef	struct s_args
 
 typedef struct s_pipex
 {
-	int		pipe1[2];
-	int 	pipe2[2];
+	int		pipe[2];
 	pid_t	pid;
 	char	*infile;
 	char	*outfile;
