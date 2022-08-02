@@ -6,7 +6,7 @@
 /*   By: rmazurit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 16:27:14 by rmazurit          #+#    #+#             */
-/*   Updated: 2022/08/02 11:19:07 by rmazurit         ###   ########.fr       */
+/*   Updated: 2022/08/02 12:56:39 by rmazurit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static char	**get_all_paths(char **env)
 		i++;
 	}
 	if (paths == NULL)
-		paths = "./";
+		paths = ft_strdup("./");
 	return (ft_split(paths, ':'));
 }
 
@@ -71,9 +71,7 @@ void	get_cmd(char **env, t_pipex *pipex, int i)
 	char	**paths;
 
 	pipex->cmd = ft_split(pipex->args.argv[i], ' ');
-
 	paths = get_all_paths(env);
-
 	pipex->cmd_path = assign_path(paths, pipex->cmd);
 	free_split(paths);
 }
@@ -88,15 +86,11 @@ void	parse_in_out_files(t_pipex *pipex, int index_outfile)
 		exit_with_error(pipex, INFILE_EXIST_ERROR);
 	if (pipex->fd_in < 0 || access(pipex->infile, R_OK) < 0)
 		exit_with_error(pipex, INFILE_READ_ERROR);
-
 	pipex->fd_out = open(pipex->outfile, O_CREAT | O_RDWR | O_TRUNC,
 						 PERMISSIONS);
 	if (pipex->fd_out < 0 || access(pipex->outfile, F_OK) < 0)
 		exit_with_error(pipex, OUTFILE_ERROR);
 }
-
-//TODO: problem:
-// ./pipex infile "cat" "cat" "cat" outfile
 
 void	parse_exec_commands(char **env, t_pipex *pipex)
 {
@@ -108,26 +102,16 @@ void	parse_exec_commands(char **env, t_pipex *pipex)
 	last_cmd = index_outfile - 1;
 
 	i = 2;
-
 	while (i < index_outfile)
 	{
-//		if (pipex->args.argc == 5)
-//		{
-//			pipe_in_to_out(env, pipex, i);
-//			exit (EXIT_SUCCESS);
-//		}
-//		else
-
+		if (i == 2)
+			pipe_infile(env, pipex, i);
+		else if (i != last_cmd)
+			pipe_inter(env, pipex, i);
+		else if (i == last_cmd)
 		{
-			if (i == 2)
-				pipe_in_to_inter(env, pipex, i);
-			else if (i != last_cmd)
-				pipe_inter(env, pipex, i);
-			else if (i == last_cmd)
-			{
-				pipe_inter_to_out(env, pipex, i);
-				exit (EXIT_SUCCESS);
-			}
+			pipe_outfile(env, pipex, i);
+			exit (EXIT_SUCCESS);
 		}
 		i++;
 	}

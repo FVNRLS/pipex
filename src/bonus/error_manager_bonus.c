@@ -31,7 +31,7 @@ void	exit_with_error(t_pipex *pipex, int exitcode)
 	else if (exitcode == EXECVE_ERROR)
 		str = "Error. Unknown command";
 	if (exitcode != ARGNUM_ERROR && exitcode != EXECVE_ERROR)
-		clear_cmd(pipex);
+		free_cmd(pipex);
 	perror(str);
 	exit(exitcode);
 }

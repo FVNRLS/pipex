@@ -27,7 +27,7 @@ void	free_split(char **split)
 	split = NULL;
 }
 
-void	clear_cmd(t_pipex *pipex)
+void	free_cmd(t_pipex *pipex)
 {
 	if (pipex->cmd != NULL)
 		free_split(pipex->cmd);

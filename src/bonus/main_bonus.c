@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmazurit <rmazurit@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rmazurit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 11:08:13 by rmazurit          #+#    #+#             */
-/*   Updated: 2022/08/01 13:24:48 by rmazurit         ###   ########.fr       */
+/*   Updated: 2022/08/02 12:56:57 by rmazurit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,5 @@ int	main(int argc, char **argv, char **env)
 		exit_with_error(&pipex, ARGNUM_ERROR);
 	parse_in_out_files(&pipex, (argc - 1));
 	parse_exec_commands(env, &pipex);
-
 	return (0);
 }

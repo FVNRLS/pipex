@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmazurit <rmazurit@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rmazurit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 17:43:23 by rmazurit          #+#    #+#             */
-/*   Updated: 2022/08/01 13:04:36 by rmazurit         ###   ########.fr       */
+/*   Updated: 2022/08/02 12:52:37 by rmazurit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,29 +48,30 @@ typedef struct s_pipex
 # define	INFILE_EXIST_ERROR	5
 # define	OUTFILE_ERROR		6
 # define	EXECVE_ERROR		7
-# define	PERMISSIONS			0644
+
+# ifndef PERMISSIONS
+#  define	PERMISSIONS			0644
+# endif
 
 //CORE FUNCTIONS
 void	parse_in_out_files(t_pipex *pipex, int index_outfile);
 void	parse_exec_commands(char **env, t_pipex *pipex);
+void	get_cmd(char **env, t_pipex *pipex, int i);
+
+//PIPE FUNCTIONS
+void	pipe_infile(char **env, t_pipex *pipex, int i);
+void	pipe_inter(char **env, t_pipex *pipex, int i);
+void	pipe_outfile(char **env, t_pipex *pipex, int i);
 void	exec_first_cmd(char **env, t_pipex *pipex);
 void	exec_inter_cmd(char **env, t_pipex *pipex);
 void	exec_last_cmd(char **env, t_pipex *pipex);
-void	get_cmd(char **env, t_pipex *pipex, int i);
-void	close_pipes(t_pipex *pipex);
-
-void	pipe_in_to_out(char **env, t_pipex *pipex, int i);
-void	pipe_in_to_inter(char **env, t_pipex *pipex, int i);
-void	pipe_inter(char **env, t_pipex *pipex, int i);
-void	pipe_inter_to_out(char **env, t_pipex *pipex, int i);
-
 
 //ERROR MANAGER
 void	exit_with_error(t_pipex *pipex, int exitcode);
 
 //TOOLS
 void	free_split(char **split);
-void	clear_cmd(t_pipex *pipex);
+void	free_cmd(t_pipex *pipex);
 char	**ft_split(char const *s, char c);
 char	*ft_strdup(char *s1);
 char	*ft_strjoin(char *s1, char *s2);
