@@ -56,8 +56,7 @@ static void	parse_in_out_files(t_pipex *pipex)
 void	parse_exec_input(char **env, t_pipex *pipex)
 {
 	pipex->infile = pipex->args->argv[1];
-	pipex->outfile =  pipex->args->argv[pipex->args->argc - 1];
-
+	pipex->outfile = pipex->args->argv[pipex->args->argc - 1];
 	if (ft_strncmp(pipex->infile, "here_doc", 8) == 0)
 	{
 		pipex->heredoc_used = true;

@@ -6,10 +6,9 @@
 /*   By: rmazurit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 17:43:23 by rmazurit          #+#    #+#             */
-/*   Updated: 2022/08/03 11:29:22 by rmazurit         ###   ########.fr       */
+/*   Updated: 2022/08/03 13:16:36 by rmazurit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef PIPEX_BONUS_H
 # define PIPEX_BONUS_H
@@ -21,10 +20,10 @@
 # include <fcntl.h>
 # include "../lib/get_next_line/get_next_line.h"
 
-typedef	struct s_args
+typedef struct s_args
 {
-	int 	argc;
-	char 	**argv;
+	int		argc;
+	char	**argv;
 }			t_args;
 
 typedef struct s_pipex
@@ -33,25 +32,25 @@ typedef struct s_pipex
 	pid_t	pid;
 	char	*infile;
 	char	*outfile;
-	int 	fd_in;
-	int 	fd_out;
+	int		fd_in;
+	int		fd_out;
 	bool	heredoc_used;
-	char 	**cmd;
+	char	**cmd;
 	char	*cmd_path;
 	t_args	*args;
 }			t_pipex;
 
-# define	ARGNUM_ERROR		1
-# define 	PIPE_ERROR			2
-# define	FORK_ERROR			3
-# define	INFILE_READ_ERROR	4
-# define	INFILE_EXIST_ERROR	5
-# define	OUTFILE_ERROR		6
-# define 	TMP_FD_ERROR		7
-# define	EXECVE_ERROR		8
+# define ARGNUM_ERROR		1
+# define PIPE_ERROR			2
+# define FORK_ERROR			3
+# define INFILE_READ_ERROR	4
+# define INFILE_EXIST_ERROR	5
+# define OUTFILE_ERROR		6
+# define TMP_FD_ERROR		7
+# define EXECVE_ERROR		8
 
 # ifndef RIGHTS
-#  define	RIGHTS				0644
+#  define RIGHTS			0644
 # endif
 
 //CORE FUNCTIONS

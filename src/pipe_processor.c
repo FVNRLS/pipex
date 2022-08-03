@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipe_manager.c                                     :+:      :+:    :+:   */
+/*   pipe_processor.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmazurit <rmazurit@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rmazurit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 15:18:41 by rmazurit          #+#    #+#             */
-/*   Updated: 2022/07/31 17:21:10 by rmazurit         ###   ########.fr       */
+/*   Updated: 2022/08/03 12:04:01 by rmazurit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ static void	exec_cmd2(char **env, t_pipex *pipex)
 */
 void	pipe_input(char **env, t_pipex *pipex)
 {
-	int   	status;
+	int	status;
 
 	if (pipe(pipex->pipe) < 0)
 		exit_with_error(pipex, PIPE_ERROR);

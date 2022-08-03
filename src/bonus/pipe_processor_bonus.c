@@ -6,7 +6,7 @@
 /*   By: rmazurit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 15:18:41 by rmazurit          #+#    #+#             */
-/*   Updated: 2022/08/03 11:13:37 by rmazurit         ###   ########.fr       */
+/*   Updated: 2022/08/03 13:24:23 by rmazurit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 */
 void	pipe_infile(char **env, t_pipex *pipex, int i)
 {
-	int   	status;
+	int	status;
 
 	if (pipe(pipex->pipe) < 0)
 		exit_with_error(pipex, PIPE_ERROR);
@@ -51,7 +51,7 @@ void	pipe_infile(char **env, t_pipex *pipex, int i)
 */
 void	pipe_inter(char **env, t_pipex *pipex, int i)
 {
-	int   	status;
+	int	status;
 
 	if (pipe(pipex->pipe) < 0)
 		exit_with_error(pipex, PIPE_ERROR);
@@ -78,7 +78,7 @@ void	pipe_inter(char **env, t_pipex *pipex, int i)
 */
 void	pipe_outfile(char **env, t_pipex *pipex, int i)
 {
-	int   	status;
+	int	status;
 
 	get_cmd(env, pipex, i);
 	pipex->pid = fork();
@@ -103,9 +103,9 @@ void	pipe_outfile(char **env, t_pipex *pipex, int i)
 */
 void	pipe_from_infile(char **env, t_pipex *pipex)
 {
-	int i;
-	int index_outfile;
-	int last_cmd;
+	int	i;
+	int	index_outfile;
+	int	last_cmd;
 
 	index_outfile = pipex->args->argc - 1;
 	last_cmd = index_outfile - 1;

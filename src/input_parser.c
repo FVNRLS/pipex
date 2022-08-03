@@ -6,7 +6,7 @@
 /*   By: rmazurit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 16:27:14 by rmazurit          #+#    #+#             */
-/*   Updated: 2022/08/03 11:46:20 by rmazurit         ###   ########.fr       */
+/*   Updated: 2022/08/03 13:18:24 by rmazurit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@
  	different paths and checking them for existence with the access() function.
 	If access() returns 0, it means that the path exists and can be returned.
 */
-static char *assign_path(char **paths, char **cmd)
+static char	*assign_path(char **paths, char **cmd)
 {
 	int		i;
 	char	*path;
-	char 	*path_with_slash;
+	char	*path_with_slash;
 	char	*slash;
 
 	path = NULL;
@@ -80,9 +80,7 @@ static void	get_commands(char **argv, char **env, t_pipex *pipex)
 
 	pipex->cmd1 = ft_split(argv[2], ' ');
 	pipex->cmd2 = ft_split(argv[3], ' ');
-
 	paths = get_all_paths(env);
-
 	pipex->cmd1_path = assign_path(paths, pipex->cmd1);
 	pipex->cmd2_path = assign_path(paths, pipex->cmd2);
 	free_split(paths);

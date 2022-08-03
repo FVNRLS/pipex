@@ -16,7 +16,7 @@ static void	read_to_stdout(t_pipex *pipex)
 {
 	char	*input;
 	char	*limiter;
-	int 	lim_len;
+	int		lim_len;
 	bool	limiter_found;
 
 	limiter = ft_strjoin(ft_strdup(pipex->args->argv[2]), ft_strdup("\n"));
@@ -46,7 +46,7 @@ static void	read_to_stdout(t_pipex *pipex)
  	3) delete the original file with unlink(), because the other processes will
  	happen on it's duplicate.
 */
-static void redirect_read_to_tmp(t_pipex *pipex)
+static void	redirect_read_to_tmp(t_pipex *pipex)
 {
 	pipex->fd_in = open("/tmp/.tmp", O_RDONLY);
 	if (pipex->fd_in < 0)
@@ -69,9 +69,9 @@ static void redirect_read_to_tmp(t_pipex *pipex)
 */
 void	pipe_from_heredoc(char **env, t_pipex *pipex)
 {
-	int 	i;
-	int 	index_outfile;
-	int 	last_cmd;
+	int	i;
+	int	index_outfile;
+	int	last_cmd;
 
 	index_outfile = pipex->args->argc - 1;
 	last_cmd = index_outfile - 1;

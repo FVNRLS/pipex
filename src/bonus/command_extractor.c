@@ -17,11 +17,11 @@
  	different paths and checking them for existence with the access() function.
 	If access() returns 0, it means that the path exists and can be returned.
 */
-static char *assign_path(char **paths, char **cmd)
+static char	*assign_path(char **paths, char **cmd)
 {
 	int		i;
 	char	*path;
-	char 	*path_with_slash;
+	char	*path_with_slash;
 	char	*slash;
 
 	path = NULL;

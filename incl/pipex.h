@@ -6,7 +6,7 @@
 /*   By: rmazurit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 11:08:45 by rmazurit          #+#    #+#             */
-/*   Updated: 2022/08/03 12:04:53 by rmazurit         ###   ########.fr       */
+/*   Updated: 2022/08/03 13:14:55 by rmazurit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,20 +26,20 @@ typedef struct s_pipex
 	pid_t	pid[2];
 	char	*infile;
 	char	*outfile;
-	char 	**cmd1;
-	char 	**cmd2;
+	char	**cmd1;
+	char	**cmd2;
 	char	*cmd1_path;
 	char	*cmd2_path;
 }			t_pipex;
 
-# define	ARGNUM_ERROR		1
-# define 	PIPE_ERROR			2
-# define	FORK_ERROR			3
-# define	INFILE_READ_ERROR	4
-# define	INFILE_EXIST_ERROR	5
-# define	OUTFILE_ERROR		6
-# define	EXECVE_ERROR		7
-# define	PERMISSIONS			0644
+# define ARGNUM_ERROR		1
+# define PIPE_ERROR			2
+# define FORK_ERROR			3
+# define INFILE_READ_ERROR	4
+# define INFILE_EXIST_ERROR	5
+# define OUTFILE_ERROR		6
+# define EXECVE_ERROR		7
+# define PERMISSIONS		0644
 
 //CORE FUNCTIONS
 void	parse_input(int argc, char **argv, char **env, t_pipex *pipex);

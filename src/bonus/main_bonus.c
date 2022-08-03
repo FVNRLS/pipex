@@ -12,11 +12,6 @@
 
 #include "../../incl/pipex_bonus.h"
 
-void	check_leaks(void)
-{
-	system("leaks pipex");
-}
-
 /*
 	If number of arguments less than 4 -> exit.
  	Otherwise:
@@ -33,7 +28,6 @@ int	main(int argc, char **argv, char **env)
 	pipex.args = &args;
 	args.argc = argc;
 	args.argv = argv;
-//	atexit(check_leaks);
 	if (argc < 5)
 		exit_with_error(&pipex, ARGNUM_ERROR);
 	parse_exec_input(env, &pipex);

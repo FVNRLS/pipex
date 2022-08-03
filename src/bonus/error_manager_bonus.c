@@ -19,7 +19,7 @@
 */
 void	exit_with_error(t_pipex *pipex, int exitcode)
 {
-	char *str;
+	char	*str;
 
 	if (exitcode == ARGNUM_ERROR)
 		str = "Error. Number of passed arguments is incorrect";
@@ -42,4 +42,3 @@ void	exit_with_error(t_pipex *pipex, int exitcode)
 	perror(str);
 	exit(exitcode);
 }
-
