@@ -12,6 +12,9 @@
 
 #include "../incl/pipex.h"
 
+/*
+	Closes all pipe ends.
+*/
 static void	close_pipes(t_pipex *pipex)
 {
 	close(pipex->pipe[0]);
@@ -19,7 +22,16 @@ static void	close_pipes(t_pipex *pipex)
 }
 
 /*
-	Exec the forked child_process.
+	<Child process>
+	Takes the input from the input file and passes it as output to the first end
+ 	of the opened pipe.
+
+ 	Closes unused pipe end before passing and used - after passing.
+	Closes the duplicated fd after using.
+	Executes the command with execve().
+	If the command fails - prints the appropriate error message and exits the
+ 	child process with status != 0
+ 	--> will be handled from parent process as signal to exit the program.
 */
 static void	exec_cmd1(char **env, t_pipex *pipex)
 {
@@ -39,7 +51,15 @@ static void	exec_cmd1(char **env, t_pipex *pipex)
 }
 
 /*
-	Exec the forked parent process.
+	<Child process>
+	Takes the output from the last end of the pipe and passes it to outfile.
+
+ 	Closes unused pipe end before passing and used - after passing.
+	Closes the duplicated fd after using.
+	Executes the command with execve().
+	If the command fails - prints the appropriate error message and exits the
+ 	child process with status != 0
+ 	--> will be handled from parent process as signal to exit the program.
 */
 static void	exec_cmd2(char **env, t_pipex *pipex)
 {
@@ -56,6 +76,16 @@ static void	exec_cmd2(char **env, t_pipex *pipex)
 		exit_with_error(pipex, EXECVE_ERROR);
 }
 
+/*
+	Passes the content from infile, used as input to the outfile via pipe.
+
+ 	To do this, opens the pipe and creates 2 forks with (parent and 2 children).
+	The command is always executed on the first child and the parent waits
+ 	until the child is ready to pass the output to next command via the pipe.
+ 	If the status is not 0, it means the command failed -> exit the program!
+ 	After the first fork returns with status 0 (command executed successfully),
+ 	start a new fork and executes the second command with the same algorithm.
+*/
 void	pipe_input(char **env, t_pipex *pipex)
 {
 	int   	status;

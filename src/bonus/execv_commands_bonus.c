@@ -6,12 +6,24 @@
 /*   By: rmazurit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 11:46:04 by rmazurit          #+#    #+#             */
-/*   Updated: 2022/08/02 11:45:24 by rmazurit         ###   ########.fr       */
+/*   Updated: 2022/08/03 11:46:20 by rmazurit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incl/pipex_bonus.h"
 
+/*
+	<Child process>
+	Takes the input from the input file (be it her_doc or the infile) and passes
+	it as output to the first end of the opened pipe.
+
+ 	Closes unused pipe end before passing and used - after passing.
+ 	Closes the duplicated fd after using.
+	Executes the command with execve().
+	If the command fails - prints the appropriate error message and exits the
+ 	child process with status != 0
+ 	--> will be handled from parent process as signal to exit the program.
+*/
 void	exec_first_cmd(char **env, t_pipex *pipex)
 {
 	int		fd;
@@ -26,6 +38,18 @@ void	exec_first_cmd(char **env, t_pipex *pipex)
 		exit_with_error(pipex, EXECVE_ERROR);
 }
 
+/*
+	<Child process>
+	Takes the output from the previous command via the last end of the pipe and
+ 	passes it to the next end of the pipe.
+
+	Closes unused pipe end before passing and used - after passing.
+  	Closes the duplicated fd after using.
+	Executes the command with execve().
+	If the command fails - prints the appropriate error message and exits the
+ 	child process with status != 0
+ 	--> will be handled from parent process as signal to exit the program.
+*/
 void	exec_inter_cmd(char **env, t_pipex *pipex)
 {
 	close(pipex->pipe[0]);
@@ -35,6 +59,16 @@ void	exec_inter_cmd(char **env, t_pipex *pipex)
 		exit_with_error(pipex, EXECVE_ERROR);
 }
 
+/*
+	<Child process>
+	Takes the output from the last command and passes it as output to outfile.
+	Executes the command with execve().
+
+	Closes the duplicated fd after using.
+	If the command fails - prints the appropriate error message and exits the
+ 	child process with status != 0
+ 	--> will be handled from parent process as signal to exit the program.
+*/
 void	exec_last_cmd(char **env, t_pipex *pipex)
 {
 	int		fd;

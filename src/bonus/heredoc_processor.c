@@ -6,7 +6,7 @@
 /*   By: rmazurit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 13:40:44 by rmazurit          #+#    #+#             */
-/*   Updated: 2022/08/02 19:24:17 by rmazurit         ###   ########.fr       */
+/*   Updated: 2022/08/03 11:23:34 by rmazurit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,16 @@ static void	read_to_stdout(t_pipex *pipex)
 	free(limiter);
 }
 
+/*
+	After the input from read_to_stdout() is read to the created here_doc file,
+ 	the content of the file should become the new output to be redirected to the
+ 	first command.
+ 	To do this:
+ 	1) close the file.
+ 	2) set the file duplicate to the new stdout with dup2().
+ 	3) delete the original file with unlink(), because the other processes will
+ 	happen on it's duplicate.
+*/
 static void redirect_read_to_tmp(t_pipex *pipex)
 {
 	pipex->fd_in = open("/tmp/.tmp", O_RDONLY);
@@ -45,6 +55,18 @@ static void redirect_read_to_tmp(t_pipex *pipex)
 	unlink("/tmp/.tmp");
 }
 
+/*
+	The function is executed if the input is transferred via here_doc file.
+ 	Executes a command, related to argv index.
+ 	The argv[1] and argv[2] are here_doc file and its limiter and are the input,
+ 	that is read via terminal from user.
+ 	After the read input is redirected to the first command.
+
+ 	Iteration:
+	Starts with argument 3 (the first command) and iterates until last command.
+	If the index is on the last command, execute the command and pass the
+ 	output to the outfile.
+*/
 void	pipe_from_heredoc(char **env, t_pipex *pipex)
 {
 	int 	i;

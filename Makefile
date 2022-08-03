@@ -43,7 +43,6 @@ TOOLS_OBJ 	= 		${TOOLS_SRC:.c=.o}
 BONUS_OBJ	=		${BONUS_SRC:.c=.o}
 
 LIBS		=		./lib/get_next_line/get_next_line.a						\
-					./lib/ft_printf/libftprintf.a 							\
 
 $(NAME): $(OBJ) $(TOOLS_OBJ)
 	${CC} ${FLAGS} ${OBJ} ${TOOLS_OBJ} -o pipex
@@ -52,19 +51,16 @@ all: $(NAME)
 
 $(BONUS_NAME): $(BONUS_OBJ) $(TOOLS_OBJ)
 	make -C ./lib/get_next_line
-	make -C ./lib/ft_printf
 	${CC} ${FLAGS} ${BONUS_OBJ} ${TOOLS_OBJ} ${LIBS} -o pipex
 
 bonus: $(BONUS_NAME)
 
 clean:
 	cd ./lib/get_next_line && make clean && cd .. && cd ..
-	cd ./lib/ft_printf && make clean && cd .. && cd ..
 	rm -f ${OBJ} ${TOOLS_OBJ} ${BONUS_OBJ}
 
 fclean:
 	cd ./lib/get_next_line && make fclean && cd .. && cd ..
-	cd ./lib/ft_printf && make fclean && cd .. && cd ..
 	rm -f ${OBJ} ${TOOLS_OBJ} ${BONUS_OBJ} ${NAME}
 
 re: fclean all

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.h                                             :+:      :+:    :+:   */
+/*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmazurit <rmazurit@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rmazurit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 11:08:45 by rmazurit          #+#    #+#             */
-/*   Updated: 2022/07/31 17:57:45 by rmazurit         ###   ########.fr       */
+/*   Updated: 2022/08/03 12:04:53 by rmazurit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 # include <stdio.h>
 # include <sys/wait.h>
 # include <fcntl.h>
-# include "../lib/ft_printf/ft_printf.h"
 # include "../lib/get_next_line/get_next_line.h"
 
 typedef struct s_pipex
@@ -50,6 +49,7 @@ void	pipe_input(char **env, t_pipex *pipex);
 void	exit_with_error(t_pipex *pipex, int exitcode);
 
 //TOOLS
+int		ft_strlen(const char *s);
 void	free_split(char **split);
 void	free_all_alloc_items(t_pipex *pipex);
 char	**ft_split(char const *s, char c);

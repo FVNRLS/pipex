@@ -12,19 +12,16 @@
 
 #include "./incl/pipex.h"
 
-void	check_leaks(void)
-{
-	system("leaks pipex");
-}
-
+/*
+	Gathers the names and command paths from the arguments.
+ 	Executes the commands, passing the content of infile as input to the outfile
+ 	via pipe.
+*/
 int	main(int argc, char **argv, char **env)
 {
 	t_pipex	pipex;
 
-//	atexit(check_leaks);
-
 	parse_input(argc, argv, env, &pipex);
 	pipe_input(env, &pipex);
-
 	return (0);
 }

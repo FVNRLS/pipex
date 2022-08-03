@@ -13,7 +13,7 @@
 #include "../../incl/pipex_bonus.h"
 
 /*
-	Checks the existing command for validity by trying to combine with
+	Checks the existing command for validity by trying to combine it with
  	different paths and checking them for existence with the access() function.
 	If access() returns 0, it means that the path exists and can be returned.
 */

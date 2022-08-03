@@ -6,7 +6,7 @@
 /*   By: rmazurit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 16:27:14 by rmazurit          #+#    #+#             */
-/*   Updated: 2022/08/02 20:03:03 by rmazurit         ###   ########.fr       */
+/*   Updated: 2022/08/03 10:39:14 by rmazurit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,13 @@ static void	parse_heredoc(t_pipex *pipex)
 		exit_with_error(pipex, OUTFILE_ERROR);
 }
 
+/*
+	Takes infile as input file and outfile as output file.
+	If input file does not exist or user has no rights to read it -
+ 	prints appropriate error message and exits.
+	If the output file does not exist yet - creates a new one.
+	When creating, the old outfile is always truncated (O_TRUNC).
+*/
 static void	parse_in_out_files(t_pipex *pipex)
 {
 	pipex->fd_in = open(pipex->infile, O_RDONLY);
@@ -41,6 +48,11 @@ static void	parse_in_out_files(t_pipex *pipex)
 		exit_with_error(pipex, OUTFILE_ERROR);
 }
 
+/*
+	Checks if heredoc_used flag is true.
+	If yes, pipes input via the here_doc file with LIMITER.
+	Otherwise, take the infile as stdin.
+*/
 void	parse_exec_input(char **env, t_pipex *pipex)
 {
 	pipex->infile = pipex->args->argv[1];

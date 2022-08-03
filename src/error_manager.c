@@ -12,6 +12,11 @@
 
 #include "../incl/pipex.h"
 
+/*
+	Exits a process or the program with an appropriate error message, based on
+ 	the exitcode.
+ 	Prints the error message to stdout.
+*/
 void	exit_with_error(t_pipex *pipex, int exitcode)
 {
 	char *str;
@@ -35,4 +40,3 @@ void	exit_with_error(t_pipex *pipex, int exitcode)
 	perror(str);
 	exit(exitcode);
 }
-

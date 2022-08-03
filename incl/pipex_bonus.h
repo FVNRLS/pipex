@@ -6,7 +6,7 @@
 /*   By: rmazurit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 17:43:23 by rmazurit          #+#    #+#             */
-/*   Updated: 2022/08/02 18:53:01 by rmazurit         ###   ########.fr       */
+/*   Updated: 2022/08/03 11:29:22 by rmazurit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 # include <stdio.h>
 # include <sys/wait.h>
 # include <fcntl.h>
-# include "../lib/ft_printf/ft_printf.h"
 # include "../lib/get_next_line/get_next_line.h"
 
 typedef	struct s_args
@@ -73,6 +72,7 @@ void	exec_last_cmd(char **env, t_pipex *pipex);
 void	exit_with_error(t_pipex *pipex, int exitcode);
 
 //TOOLS
+int		ft_strlen(const char *s);
 void	free_split(char **split);
 void	free_cmd(t_pipex *pipex);
 char	**ft_split(char const *s, char c);

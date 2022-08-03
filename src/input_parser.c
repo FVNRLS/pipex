@@ -1,17 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input_manager.c                                    :+:      :+:    :+:   */
+/*   input_parser.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmazurit <rmazurit@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rmazurit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 16:27:14 by rmazurit          #+#    #+#             */
-/*   Updated: 2022/07/31 16:04:11 by rmazurit         ###   ########.fr       */
+/*   Updated: 2022/08/03 11:46:20 by rmazurit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/pipex.h"
 
+/*
+	Checks the existing command for validity by trying to combine it with
+ 	different paths and checking them for existence with the access() function.
+	If access() returns 0, it means that the path exists and can be returned.
+*/
 static char *assign_path(char **paths, char **cmd)
 {
 	int		i;
@@ -66,6 +71,9 @@ static char	**get_all_paths(char **env)
 	return (ft_split(paths, ':'));
 }
 
+/*
+	Gets a full paths of the first and last commands, received from argv.
+*/
 static void	get_commands(char **argv, char **env, t_pipex *pipex)
 {
 	char	**paths;
@@ -80,6 +88,11 @@ static void	get_commands(char **argv, char **env, t_pipex *pipex)
 	free_split(paths);
 }
 
+/*
+	If number of arguments is not 4 -> exit the program.
+ 	Otherwise: gather the names of infile and outfile as well as the
+ 	command paths over argv indexes.
+*/
 void	parse_input(int argc, char **argv, char **env, t_pipex *pipex)
 {
 	if (argc != 5)
