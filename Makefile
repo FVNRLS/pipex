@@ -10,39 +10,39 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME 		= 		pipex
-BONUS_NAME	=		pipex_bonus
+NAME 		= 	pipex
+BONUS_NAME	=	pipex_bonus
 
-CC 			= 		cc
+CC 		= 	cc
 
-FLAGS		= 		-Wall -Wextra -Werror
+FLAGS		= 	-Wall -Wextra -Werror
 
-SRC 		= 		./main.c												\
-					./src/input_parser.c									\
-					./src/pipe_processor.c									\
-					./src/error_manager.c									\
-					./src/tools/free_all_malloc.c							\
+SRC 		= 	./main.c				\
+			./src/input_parser.c			\
+			./src/pipe_processor.c			\
+			./src/error_manager.c			\
+			./src/tools/free_all_malloc.c		\
 
-TOOLS_SRC	=		./src/tools/ft_split.c									\
-					./src/tools/ft_strdup.c									\
-					./src/tools/ft_strjoin.c								\
-					./src/tools/ft_strncmp.c								\
-					./src/tools/ft_strlen.c									\
+TOOLS_SRC	=	./src/tools/ft_split.c			\
+			./src/tools/ft_strdup.c			\
+			./src/tools/ft_strjoin.c		\
+			./src/tools/ft_strncmp.c		\
+			./src/tools/ft_strlen.c			\
 
-BONUS_SRC	= 		./src/bonus/main_bonus.c								\
-					./src/bonus/error_manager_bonus.c						\
-					./src/bonus/input_parser_bonus.c						\
-					./src/bonus/command_extractor.c							\
-					./src/bonus/execv_commands_bonus.c						\
-					./src/bonus/pipe_processor_bonus.c						\
-					./src/bonus/heredoc_processor.c							\
-					./src/tools/free_all_malloc_bonus.c						\
+BONUS_SRC	= 	./src/bonus/main_bonus.c		\
+			./src/bonus/error_manager_bonus.c	\
+			./src/bonus/input_parser_bonus.c	\
+			./src/bonus/command_extractor.c		\
+			./src/bonus/execv_commands_bonus.c	\
+			./src/bonus/pipe_processor_bonus.c	\
+			./src/bonus/heredoc_processor.c		\
+			./src/tools/free_all_malloc_bonus.c	\
 
-OBJ 		= 		${SRC:.c=.o}
-TOOLS_OBJ 	= 		${TOOLS_SRC:.c=.o}
-BONUS_OBJ	=		${BONUS_SRC:.c=.o}
+OBJ 		= 	${SRC:.c=.o}
+TOOLS_OBJ 	= 	${TOOLS_SRC:.c=.o}
+BONUS_OBJ	=	${BONUS_SRC:.c=.o}
 
-LIBS		=		./lib/get_next_line/get_next_line.a						\
+LIBS		=	./lib/get_next_line/get_next_line.a	\
 
 $(NAME): $(OBJ) $(TOOLS_OBJ)
 	${CC} ${FLAGS} ${OBJ} ${TOOLS_OBJ} -o pipex
