@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   command_extractor.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmazurit <rmazurit@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rmazurit <rmazurit@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 19:56:44 by rmazurit          #+#    #+#             */
 /*   Updated: 2022/08/03 19:27:26 by rmazurit         ###   ########.fr       */
